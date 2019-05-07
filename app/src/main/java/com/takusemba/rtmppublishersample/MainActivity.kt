@@ -4,6 +4,7 @@ import android.opengl.GLSurfaceView
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.*
@@ -11,7 +12,6 @@ import com.takusemba.rtmppublisher.Publisher
 import com.takusemba.rtmppublisher.PublisherListener
 
 class MainActivity : AppCompatActivity(), PublisherListener {
-
     private lateinit var publisher: Publisher
     private lateinit var glView: GLSurfaceView
     private lateinit var container: RelativeLayout
@@ -19,10 +19,14 @@ class MainActivity : AppCompatActivity(), PublisherListener {
     private lateinit var cameraButton: ImageView
     private lateinit var label: TextView
 
-    private val url = "rtmp://104.128.94.191/live/ttt"
     private val handler = Handler()
     private var thread: Thread? = null
     private var isCounting = false
+    private var url :String = ""
+
+    companion object {
+        const val MEDIA_URL="media_url"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +37,8 @@ class MainActivity : AppCompatActivity(), PublisherListener {
         cameraButton = findViewById(R.id.toggle_camera)
         label = findViewById(R.id.live_label)
 
+        url = intent.extras.get(MEDIA_URL).toString()
+        Log.d("url-----------", url as String?)
 
         if (url.isBlank()) {
             Toast.makeText(this, R.string.error_empty_url, Toast.LENGTH_SHORT)
