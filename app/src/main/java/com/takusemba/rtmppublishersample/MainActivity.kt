@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity(), PublisherListener {
     private lateinit var cameraButton: ImageView
     private lateinit var label: TextView
 
-    private val url = BuildConfig.STREAMING_URL
+    private val url = "rtmp://104.128.94.191/live/ttt"
     private val handler = Handler()
     private var thread: Thread? = null
     private var isCounting = false
